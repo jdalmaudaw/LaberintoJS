@@ -57,7 +57,7 @@ while (eleccioLab != 4) {
     )
   );
 
-  if (eleccioLab - 1 == 4) {
+  if (eleccioLab === 4) {
     console.log("Adios!");
     break;
   }
