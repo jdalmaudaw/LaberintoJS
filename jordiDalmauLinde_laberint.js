@@ -3,13 +3,11 @@
  *
  * Autor: Jordi Dalmau Linde
  */
-
 const prompt = require("prompt-sync")({ sigint: true });
-
 let eleccioLab;
 let eleccioMenu;
 let contadorCasillas = 0;
-let a = [false, false, false];
+let totales = [false, false, false];
 let flag = false;
 
 while (eleccioLab != 4) {
@@ -29,12 +27,11 @@ while (eleccioLab != 4) {
       )
     )
   );
-
+  console.clear();
   if (eleccioLab === 4) {
     console.log("Adios!");
     break;
   }
-
   do {
     let laberintos = [
       [
@@ -62,7 +59,6 @@ while (eleccioLab != 4) {
         ["#", "#", "#", "#", "#", "#", "#", "#", "#", "#"],
       ],
     ];
-
     eleccioMenu = Number.parseInt(
       prompt(
         console.log(
@@ -78,21 +74,18 @@ while (eleccioLab != 4) {
       )
     );
     console.clear();
-
     // 1. Ver Laberinto
     while (eleccioMenu === 1) {
       console.log("AQUEST ES EL LABERINT QUE HAS ESCOLLIT: \n");
       console.log();
-
       for (let i = 0; i < laberintos[eleccioLab - 1].length; i++) {
         let element = laberintos[eleccioLab - 1][i].join(" ");
         console.log(element);
       }
-
       prompt("\n  PULSA ENTER PER CONTINUAR: ");
+      console.clear();
       break;
     }
-
     // 2. Jugar Laberinto
     let pasos = 0;
     while (eleccioMenu === 2) {
@@ -107,8 +100,7 @@ while (eleccioLab != 4) {
             for (let j = 0; j < laberintos[eleccioLab - 1][i].length; j++) {
               if (laberintos[eleccioLab - 1][i][j] !== "#") {
                 contadorCasillas++;
-                
-                a[eleccioLab - 1] = contadorCasillas;
+                totales[eleccioLab - 1] = contadorCasillas;
               }
             }
           }
@@ -116,9 +108,9 @@ while (eleccioLab != 4) {
       }
       contadorCasillas = 0;
       flag = true;
-
       for (let i = 0; i < laberintos[eleccioLab - 1].length; i++) {
         let laberinto = laberintos[eleccioLab - 1][i].join(" ");
+
         console.log(laberinto);
       }
       console.log();
@@ -126,18 +118,17 @@ while (eleccioLab != 4) {
       console.log("2. Est");
       console.log("3. Sud");
       console.log("4. Oest");
-
       let moviment;
       moviment = prompt("\n Moviment: ");
-
+      console.clear();
       // Movimientos
-
       // ARRIBA
       if (moviment == 1) {
         for (let i = 0; i < laberintos[eleccioLab - 1].length; i++) {
           for (let j = 0; j < laberintos[eleccioLab - 1][i].length; j++) {
             if (laberintos[eleccioLab - 1][i][j] === "u") {
               if (laberintos[eleccioLab - 1][i - 1][j] === "#") {
+                console.clear();
                 console.log("ERROR, es una pared!");
                 eleccioMenu = 2;
               } else if (laberintos[eleccioLab - 1][i - 1][j] === " ") {
@@ -157,13 +148,13 @@ while (eleccioLab != 4) {
           }
         }
       }
-
       // DERECHA
       else if (moviment == 2) {
         for (let i = 0; i < laberintos[eleccioLab - 1].length; i++) {
           for (let j = 0; j < laberintos[eleccioLab - 1][i].length; j++) {
             if (laberintos[eleccioLab - 1][i][j] === "u") {
               if (laberintos[eleccioLab - 1][i][j + 1] === "#") {
+                console.clear();
                 console.log("ERROR, es una pared!");
                 eleccioMenu = 2;
               } else if (laberintos[eleccioLab - 1][i][j + 1] === " ") {
@@ -183,13 +174,13 @@ while (eleccioLab != 4) {
           }
         }
       }
-
       // SUD
       else if (moviment == 3) {
         for (let i = 0; i < laberintos[eleccioLab - 1].length; i++) {
           for (let j = 0; j < laberintos[eleccioLab - 1][i].length; j++) {
             if (laberintos[eleccioLab - 1][i][j] === "u") {
               if (laberintos[eleccioLab - 1][i + 1][j] === "#") {
+                console.clear();
                 console.log("ERROR, es una pared!");
                 eleccioMenu = 2;
               } else if (laberintos[eleccioLab - 1][i + 1][j] === " ") {
@@ -209,13 +200,13 @@ while (eleccioLab != 4) {
           }
         }
       }
-
       // IZQUIERDA
       else if (moviment == 4) {
         for (let i = 0; i < laberintos[eleccioLab - 1].length; i++) {
           for (let j = 0; j < laberintos[eleccioLab - 1][i].length; j++) {
             if (laberintos[eleccioLab - 1][i][j] === "u") {
               if (laberintos[eleccioLab - 1][i][j - 1] === "#") {
+                console.clear();
                 console.log("ERROR, es una pared!");
                 eleccioMenu = 2;
               } else if (laberintos[eleccioLab - 1][i][j - 1] === " ") {
@@ -235,12 +226,11 @@ while (eleccioLab != 4) {
           }
         }
       }
-
-      if (a[eleccioLab - 1] <= pasos) {
+      if (totales[eleccioLab - 1] <= pasos) {
+        console.clear();
         console.log("Has fet " + pasos + " pasos, has perdut.");
         prompt("\n  PULSA ENTER PER CONTINUAR: ");
         console.clear();
-
         for (let i = 0; i < laberintos[eleccioLab - 1].length; i++) {
           for (let j = 0; j < laberintos[eleccioLab - 1][i].length; j++) {
             laberintos[eleccioLab - 1][i][j] = " ";
@@ -250,7 +240,6 @@ while (eleccioLab != 4) {
         eleccioMenu = 3;
       }
       pasos++;
-      
     }
   } while (eleccioMenu != 3);
 }
